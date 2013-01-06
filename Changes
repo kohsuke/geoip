@@ -1,3 +1,12 @@
+1.2.8 Apr 13th 2012
+	- Fix: Close the database file without exceptions whether it is
+	  open(STANDARD) or not(MEMORY_CACHE) in conjunction with the
+	  CHECK_CACHE option. (Lorenzo Crosby)
+1.2.7 Apr 10th 2012
+        - Update timezones ( Boris Zentner )
+	- Update FIPS codes 20120402 ( Boris Zentner )
+1.2.6 Mar 28th 2012
+        - Update country codes, FIPS codes and timezone ( Boris Zentner )
 1.2.5 Aug 23th 2011
         - Fix small buffer issue when java tries to read over the EOF ( Boris Zentner )
         - Add support for new database types NETSPEED_EDITION_REV1_V6,
