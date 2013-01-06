@@ -1,0 +1,14 @@
+1. download new bundle from http://www.maxmind.com/download/geoip/api/java/
+2. checkout the incoming branch
+3. delete everything
+4. unzip
+5. git add everything
+6. commit
+7. merge to master
+8. update POM2. checkout the incoming branch
+3. delete everything
+4. unzip
+5. git add everything
+6. commit
+7. merge to master
+8. update POM
