@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.kohsuke</groupId>
+    <artifactId>pom</artifactId>
+    <version>1</version>
+  </parent>
+
+  <artifactId>geoip</artifactId>
+  <version>1.2.5</version>
+  <name>GeoIP Java API</name>
+  <url>http://www.maxmind.com/app/java</url>
+  <description>GeoIP Java API</description>
+
+  <scm>
+    <connection>scm:git:git@github.com/kohsuke/${project.artifactId}.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/kohsuke/${project.artifactId}.git</developerConnection>
+    <url>http://${project.artifactId}.kohsuke.org/</url>
+  </scm>
+
+  <build>
+    <sourceDirectory>source</sourceDirectory>
+  </build>
+
+  <distributionManagement>
+    <site>
+      <id>github-pages</id>
+      <url>gitsite:git@github.com/kohsuke/${project.artifactId}.git</url>
+    </site>
+  </distributionManagement>
+</project>
