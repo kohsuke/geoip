@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class LookupServiceTest {
 
-  private static final File GEO_IP_DATABASE = new File("/tmp/GeoIPCity.dat");
+  private static final File GEO_IP_DATABASE = new File("/usr/local/share/GeoIP/GeoIPCity.dat");
   private LookupService lookupService;
 
   @Before
