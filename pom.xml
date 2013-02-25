@@ -7,7 +7,7 @@
   </parent>
 
   <artifactId>geoip</artifactId>
-  <version>1.2.9-SNAPSHOT</version>
+  <version>1.2.9-patch-1-SNAPSHOT</version>
   <name>GeoIP Java API</name>
   <url>http://www.maxmind.com/app/java</url>
   <description>GeoIP Java API</description>
