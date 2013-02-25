@@ -798,8 +798,9 @@ public class LookupService {
             }
 
             // get country
-            record.countryCode = countryCode[unsignedByteToInt(record_buf[0])];
-            record.countryName = countryName[unsignedByteToInt(record_buf[0])];
+            int positionInCountryArrays = unsignedByteToInt(record_buf[0]);
+            record.countryCode = safeGetFromCountriesArray(countryCode, positionInCountryArrays);
+            record.countryName = safeGetFromCountriesArray(countryName, positionInCountryArrays);
             record_buf_offset++;
 
             // get region
@@ -885,8 +886,9 @@ public class LookupService {
             }
 
             // get country
-            record.countryCode = countryCode[unsignedByteToInt(record_buf[0])];
-            record.countryName = countryName[unsignedByteToInt(record_buf[0])];
+            int positionInCountryArrays = unsignedByteToInt(record_buf[0]);
+            record.countryCode = safeGetFromCountriesArray(countryCode, positionInCountryArrays);
+            record.countryName = safeGetFromCountriesArray(countryName, positionInCountryArrays);
             record_buf_offset++;
 
             // get region
@@ -944,6 +946,13 @@ public class LookupService {
             System.err.println("IO Exception while seting up segments");
         }
         return record;
+    }
+
+    private String safeGetFromCountriesArray(String[] array, int position) {
+      if (array.length <= position) {
+        return null;
+      }
+      return array[position];
     }
 
     public String getOrg(InetAddress addr) {
