@@ -1,4 +1,4 @@
-1. download new bundle from http://www.maxmind.com/download/geoip/api/java/
+1. download new bundle from http://dev.maxmind.com/geoip/downloadable#Java-8
 2. checkout the incoming branch
 3. delete everything
 4. unzip
