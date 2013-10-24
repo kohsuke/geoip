@@ -22,6 +22,7 @@ package com.maxmind.geoip;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.Inet6Address;
@@ -74,7 +75,7 @@ public class LookupService {
     /**
      * Database file.
      */
-    private RandomAccessFile file = null;
+    private RandomAccessFileInterface file = null;
     private File databaseFile = null;
 
     /**
@@ -126,9 +127,10 @@ public class LookupService {
 
     private final Country UNKNOWN_COUNTRY = new Country("--", "N/A");
 
-    private static final HashMap hashmapcountryCodetoindex = new HashMap(512);
-    private static final HashMap hashmapcountryNametoindex = new HashMap(512);
-    private static final String[] countryCode = {
+    private static final HashMap<String, Integer> hashmapcountryCodetoindex = new HashMap<String, Integer>(
+            512);
+    private static final HashMap<String, Integer> hashmapcountryNametoindex = new HashMap<String, Integer>(
+            512);private static final String[] countryCode = {
    "--","AP","EU","AD","AE","AF","AG","AI","AL","AM","CW",
 	"AO","AQ","AR","AS","AT","AU","AW","AZ","BA","BB",
 	"BD","BE","BF","BG","BH","BI","BJ","BM","BN","BO",
@@ -254,7 +256,7 @@ public class LookupService {
      */
     public LookupService(File databaseFile) throws IOException {
         this.databaseFile = databaseFile;
-        this.file = new RandomAccessFile(databaseFile, "r");
+        this.file = new RandomAccessFileImpl(databaseFile, "r");
         init();
     }
 
@@ -284,9 +286,35 @@ public class LookupService {
      */
     public LookupService(File databaseFile, int options) throws IOException{
         this.databaseFile = databaseFile;
-	this.file = new RandomAccessFile(databaseFile, "r");
+	this.file = new RandomAccessFileImpl(databaseFile, "r");
 	dboptions = options;
 	init();
+    }
+    
+
+    /**
+     * Read the database from a InputStream into memory
+     * afterwards it will be copied again.
+     * You need double the memory of the file during the process
+     * (26mb x 2 = ~52mb)
+     * 
+     * Afterwards it will be normally cached in memory.
+     *  
+     * @param databaseFile
+     * @param int max
+     */
+    public LookupService(InputStream databaseFile, int maxDatabaseFile)
+            throws IOException {
+        // read into memory
+        this.file = new InMemoryRandomAccessFile(databaseFile, maxDatabaseFile);
+
+        // avoid double buffering
+        dboptions = LookupService.GEOIP_MEMORY_CACHE;
+
+        // complete the initialization
+        init();
+        // throw away the InMemoryRandomAccessFile
+        this.file = null;
     }
     /**
      * Reads meta-data from the database file.
@@ -576,7 +604,7 @@ public class LookupService {
             /* GeoIP Database file updated */
             /* refresh filehandle */
             close();
-            file = new RandomAccessFile(databaseFile,"r");
+            file = new RandomAccessFileImpl(databaseFile,"r");
 	    databaseInfo = null;
 	    init();
           }
